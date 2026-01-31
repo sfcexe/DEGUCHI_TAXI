@@ -77,7 +77,6 @@
             box-sizing: border-box;
             letter-spacing: 0.1em;
             border: none;
-            -webkit-tap-highlight-color: transparent; /* iOSのタップ時ハイライト消去 */
         }
 
         .btn i {
@@ -90,6 +89,10 @@
             color: var(--accent-color);
             border: 1px solid var(--accent-color);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .popupbutton:active {
+            transform: scale(0.98);
         }
 
         .line-btn {
@@ -107,10 +110,6 @@
         .btn:hover {
             opacity: 0.9;
             transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: scale(0.98);
         }
 
         .separator {
@@ -168,7 +167,6 @@
             margin: 0 auto;
         }
 
-        /* --- Dialog iOS 修正版スタイル --- */
         dialog {
             border: none;
             border-radius: 8px;
@@ -178,23 +176,10 @@
             max-height: 85vh; 
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             overflow: hidden; 
-            /* iOS用の修正: 中央配置を固定 */
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            margin: 0;
-        }
-
-        /* 開いている時だけdisplayを適用 */
-        dialog[open] {
-            display: flex;
-            flex-direction: column;
         }
 
         dialog::backdrop {
             background-color: rgba(0, 0, 0, 0.85);
-            -webkit-backdrop-filter: blur(5px); /* Safari対応 */
             backdrop-filter: blur(5px);
         }
 
@@ -202,7 +187,6 @@
             display: flex;
             flex-direction: column;
             background-color: #fff;
-            width: 100%;
             height: 100%;
             max-height: 85vh;
         }
@@ -210,7 +194,6 @@
         .dialog-body {
             overflow-y: auto; 
             flex: 1;
-            -webkit-overflow-scrolling: touch; /* iOSでのスクロールを滑らかに */
         }
 
         .dialog-content img {
@@ -230,7 +213,6 @@
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            -webkit-appearance: none; /* Safariでのボタン表示リセット */
         }
 
         @keyframes fadeInUp {
@@ -271,7 +253,7 @@
             <h3>INFORMATION</h3>
             <span class="en-subtitle">Service & Destinations</span>
             <div class="about-text">
-                <p>お見積もりは無料でございますので、お気軽にお問い合わせください。浅草寺や東京タワー、東京スカイツリーなどの東京都内旅行、また富士山や日光などの日帰り旅行のご相談も承っております。<br>※乗客定員は6名までです。</p>
+                <p>お見積もりは無料ですので、お気軽にお問い合わせください。浅草寺や東京タワー、東京スカイツリーなどの東京都内観光、また富士山や日光などの日帰り旅行のご相談も承っております。<br>※乗客定員は6名様までです。</p>
                 <p>We offer free estimates, so please feel free to contact us. We also accept consultations regarding trips within Tokyo, such as Sensoji Temple, Tokyo Tower, and Tokyo Skytree, as well as day trips to Mount Fuji and Nikko. <br>* Maximum passenger capacity is 6 people.</p>
             </div>
         </section>
