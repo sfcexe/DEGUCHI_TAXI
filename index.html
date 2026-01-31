@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEGUCHI TAXI | Exclusive Transfer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a2a3a; 
+            --accent-color: #c5a059;  
+            --text-color: #333;
+            --light-text: #666;
+            --bg-color: #f9f9f7;     
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "MS PMincho", serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--accent-color);
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            letter-spacing: 0.25em;
+            font-weight: 400;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 18px;
+            border-radius: 4px; 
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            letter-spacing: 0.1em;
+            border: none;
+        }
+
+        .btn i {
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .popupbutton {
+            background: linear-gradient(135deg, #2c3e50, #1a2a3a);
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .popupbutton:active {
+            transform: scale(0.98);
+        }
+
+        .line-btn {
+            background-color: #06C755;
+            color: var(--white);
+            box-shadow: 0 4px 10px rgba(6, 199, 85, 0.2);
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: var(--white);
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .separator {
+            margin: 45px 0 25px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            letter-spacing: 0.2em;
+        }
+
+        .separator::before, .separator::after {
+            content: "";
+            height: 1px;
+            width: 40px;
+            background-color: var(--accent-color);
+        }
+
+        .about-us {
+            margin-top: 50px;
+            padding: 40px 25px;
+            background-color: var(--white);
+            border: 1px solid #eee;
+            border-left: none;
+            border-right: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .about-us h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.3em;
+            color: var(--primary-color);
+            font-weight: 400;
+        }
+
+        .en-subtitle {
+            font-size: 0.65rem;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: block;
+        }
+
+        .about-text {
+            font-size: 0.88rem;
+            line-height: 2;
+            color: #555;
+            text-align: left;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 0;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            overflow: hidden; 
+        }
+
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+
+        .dialog-content {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            height: 100%;
+            max-height: 85vh;
+        }
+
+        .dialog-body {
+            overflow-y: auto; 
+            flex: 1;
+        }
+
+        .dialog-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #f0f0f0;
+        }
+
+        .close-btn {
+            background: var(--primary-color);
+            border: none;
+            padding: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DEGUCHI TAXI</h1>
+        <p>Exclusive Transfer & Charter</p>
+    </header>
+
+    <div class="container">
+        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_haneda').showModal();">
+            <i class="fa-solid fa-plane"></i> Haneda Airport Fares
+        </button>
+        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_narita').showModal();">
+            <i class="fa-solid fa-plane-departure"></i> Narita Airport Fares
+        </button>
+        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_charter').showModal();">
+            <i class="fa-solid fa-clock"></i> Charter Fares
+        </button>
+
+        <div class="separator">NEXT RESERVATION</div>
+
+        <a href="https://line.me/ti/p/eL04fNCet1" class="btn line-btn" target="_blank">
+            <i class="fa-brands fa-line"></i> Book via LINE
+        </a>
+
+        <a href="https://wa.me/819046127882" class="btn whatsapp-btn" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Book via WhatsApp
+        </a>
+
+        <section class="about-us">
+            <h3>INFORMATION</h3>
+            <span class="en-subtitle">Service & Destinations</span>
+            <div class="about-text">
+                <p>お見積もりは無料でございますので、お気軽にお問い合わせください。浅草寺や東京タワー、東京スカイツリーなどの東京都内旅行、また富士山や日光などの日帰り旅行のご相談も承っております。※乗客定員は6名までです。</p>
+                <p>We offer free estimates, so please feel free to contact us. We also accept consultations regarding trips within Tokyo, such as Sensoji Temple, Tokyo Tower, and Tokyo Skytree, as well as day trips to Mount Fuji and Nikko. * Maximum passenger capacity is 6 people.</p>
+            </div>
+        </section>
+    </div>
+
+    <dialog id="dialog_haneda">
+        <div class="dialog-content">
+            <div class="dialog-body">
+                <img src="Haneda_fee.png" alt="Haneda Airport Fares">
+            </div>
+            <button class="close-btn" onclick="document.getElementById('dialog_haneda').close();">CLOSE</button>
+        </div>
+    </dialog>
+
+    <dialog id="dialog_narita">
+        <div class="dialog-content">
+            <div class="dialog-body">
+                <img src="pen-image.png" alt="Narita Airport Fares">
+            </div>
+            <button class="close-btn" onclick="document.getElementById('dialog_narita').close();">CLOSE</button>
+        </div>
+    </dialog>
+
+    <dialog id="dialog_charter">
+        <div class="dialog-content">
+            <div class="dialog-body">
+                <img src="Charter.png" alt="Charter Fares">
+            </div>
+            <button class="close-btn" onclick="document.getElementById('dialog_charter').close();">CLOSE</button>
+        </div>
+    </dialog>
+
+</body>
+</html>
