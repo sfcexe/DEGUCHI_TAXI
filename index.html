@@ -6,6 +6,7 @@
     <title>DEGUCHI TAXI | Exclusive Transfer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="icon" href="favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="favicon.png">
     <style>
         :root {
             --primary-color: #1a2a3a; 
@@ -26,6 +27,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        body.modal-open {
+            overflow: hidden;
         }
 
         header {
@@ -178,33 +183,37 @@
             opacity: 0.6;
             letter-spacing: 0.05em;
         }
-        
-        .fallback-link:hover {
-            opacity: 1;
-        }
 
-        dialog {
-            border: none;
-            border-radius: 8px;
-            padding: 0;
-            width: 90%;
-            max-width: 500px;
-            max-height: 85vh; 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            overflow: hidden; 
-        }
-
-        dialog::backdrop {
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
             backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px); /* iOS用 */
+        }
+
+        .modal-overlay.is-active {
+            display: flex;
         }
 
         .dialog-content {
+            background-color: #fff;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            border-radius: 8px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            background-color: #fff;
-            height: 100%;
-            max-height: 85vh;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.3s ease-out;
         }
 
         .dialog-body {
@@ -246,18 +255,21 @@
     </header>
 
     <div class="container">
-        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_haneda').showModal();">
+        <button class="btn popupbutton" type="button" onclick="openModal('dialog_haneda');">
             <i class="fa-solid fa-plane"></i> Haneda Airport Fares
         </button>
         <a href="Haneda_fee.png" class="fallback-link" target="_blank">View image if button doesn't work</a>
-        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_narita').showModal();">
+        
+        <button class="btn popupbutton" type="button" onclick="openModal('dialog_narita');">
             <i class="fa-solid fa-plane-departure"></i> Narita Airport Fares
         </button>
         <a href="pen-image.png" class="fallback-link" target="_blank">View image if button doesn't work</a>
-        <button class="btn popupbutton" type="button" onclick="document.getElementById('dialog_charter').showModal();">
+        
+        <button class="btn popupbutton" type="button" onclick="openModal('dialog_charter');">
             <i class="fa-solid fa-clock"></i> Charter Fares
         </button>
         <a href="Charter.png" class="fallback-link" target="_blank">View image if button doesn't work</a>
+        
         <div class="separator">NEXT RESERVATION</div>
 
         <a href="https://line.me/ti/p/eL04fNCet1" class="btn line-btn" target="_blank">
@@ -272,60 +284,74 @@
             <h3>INFORMATION</h3>
             <span class="en-subtitle">Service & Destinations</span>
             <div class="about-text">
-    <p>
-        お見積もりは無料ですので、お気軽にお問い合わせください。浅草寺や東京タワー、東京スカイツリーなどの東京都内観光、また富士山や日光などの日帰り旅行のご相談も承っております。<br>
-        <span style="color: #d9534f;">※乗客定員は6名様までです。</span>
-    </p>
+                <p>
+                    お見積もりは無料ですので、お気軽にお問い合わせください。浅草寺や東京タワー、東京スカイツリーなどの東京都内観光、また富士山や日光などの日帰り旅行のご相談も承っております。<br>
+                    <span style="color: #d9534f;">※乗客定員は6名様までです。</span>
+                </p>
 
-    <p><strong>ご予約の際、以下の項目を必ずご記入ください。</strong></p>
-    <ul>
-        <li>お迎え場所（ホテル名・住所等）</li>
-        <li>日時</li>
-        <li>乗車人数</li>
-        <li>荷物の有無（スーツケース大〇個、小〇個等）</li>
-    </ul>
+                <p><strong>ご予約の際、以下の項目を必ずご記入ください。</strong></p>
+                <ul>
+                    <li>お迎え場所（ホテル名・住所等）</li>
+                    <li>日時</li>
+                    <li>乗車人数</li>
+                    <li>荷物の有無（スーツケース大〇個、小〇個等）</li>
+                </ul>
 
-    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
 
-    <p>
-        We offer free estimates, so please feel free to contact us. We also accept consultations regarding trips within Tokyo (Senso-ji Temple, Tokyo Tower, Tokyo Skytree, etc.), as well as day trips to Mt. Fuji and Nikko.<br>
-        <span style="color: #d9534f;">* Maximum passenger capacity is 6 people.</span>
-    </p>
+                <p>
+                    We offer free estimates, so please feel free to contact us. We also accept consultations regarding trips within Tokyo (Senso-ji Temple, Tokyo Tower, Tokyo Skytree, etc.), as well as day trips to Mt. Fuji and Nikko.<br>
+                    <span style="color: #d9534f;">* Maximum passenger capacity is 6 people.</span>
+                </p>
 
-    <p><strong>Please include the following details in your reservation:</strong></p>
-    <ul>
-        <li>Pick-up location (Hotel name, address, etc.)</li>
-        <li>Date and time</li>
-        <li>Number of passengers</li>
-        <li>Number of luggage (e.g., Number of large/small suitcases)</li>
-    </ul>
-</div>
+                <p><strong>Please include the following details in your reservation:</strong></p>
+                <ul>
+                    <li>Pick-up location (Hotel name, address, etc.)</li>
+                    <li>Date and time</li>
+                    <li>Number of passengers</li>
+                    <li>Number of luggage (e.g., Number of large/small suitcases)</li>
+                </ul>
+            </div>
         </section>
     </div>
 
-    <dialog id="dialog_haneda">
-        <div class="dialog-content">
+    <div id="dialog_haneda" class="modal-overlay" onclick="closeModal('dialog_haneda')">
+        <div class="dialog-content" onclick="event.stopPropagation()">
             <div class="dialog-body">
                 <img src="Haneda_fee.png" alt="Haneda Airport Fares">
             </div>
-            <button class="close-btn" onclick="document.getElementById('dialog_haneda').close();">CLOSE</button>
+            <button class="close-btn" onclick="closeModal('dialog_haneda')">CLOSE</button>
         </div>
-    </dialog>
-    <dialog id="dialog_narita">
-        <div class="dialog-content">
+    </div>
+
+    <div id="dialog_narita" class="modal-overlay" onclick="closeModal('dialog_narita')">
+        <div class="dialog-content" onclick="event.stopPropagation()">
             <div class="dialog-body">
                 <img src="pen-image.png" alt="Narita Airport Fares">
             </div>
-            <button class="close-btn" onclick="document.getElementById('dialog_narita').close();">CLOSE</button>
+            <button class="close-btn" onclick="closeModal('dialog_narita')">CLOSE</button>
         </div>
-    </dialog>
-    <dialog id="dialog_charter">
-        <div class="dialog-content">
+    </div>
+
+    <div id="dialog_charter" class="modal-overlay" onclick="closeModal('dialog_charter')">
+        <div class="dialog-content" onclick="event.stopPropagation()">
             <div class="dialog-body">
                 <img src="Charter.png" alt="Charter Fares">
             </div>
-            <button class="close-btn" onclick="document.getElementById('dialog_charter').close();">CLOSE</button>
+            <button class="close-btn" onclick="closeModal('dialog_charter')">CLOSE</button>
         </div>
-    </dialog>
-    </body>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('is-active');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('is-active');
+            document.body.classList.remove('modal-open');
+        }
+    </script>
+</body>
 </html>
